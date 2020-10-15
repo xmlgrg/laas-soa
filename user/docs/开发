@@ -1,0 +1,5 @@
+开发工具: WebStorm
+nodejs版本: v12.16.1
+在当前目录下运行: npm run install 进行安装依赖
+运行: npm run dev 使用开发者模式运行
+运行: npm run build 编译成静态文件可供nginx直接使用, 注意修改nginx的配置文件配置使用vue的路由, 而不是纯粹的又vue的首页进行加载路由, 实现路径可以直接访问模块路径
