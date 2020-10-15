@@ -1,7 +1,7 @@
 {
-  "name": "workstation",
+  "name": "user",
   "version": "0.0.1",
-  "description": "workstation for laasops",
+  "description": "user layer",
   "author": "tristan-tsl",
   "private": true,
   "scripts": {
