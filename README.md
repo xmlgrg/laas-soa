@@ -22,7 +22,7 @@
 
 ### backend logic
 
-deal with problem
+deal with request
 
 store data
 
