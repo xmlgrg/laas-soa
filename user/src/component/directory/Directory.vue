@@ -2,6 +2,7 @@
   <div>
     <Button @click="init_tree">Refresh</Button>
     <Button v-if="!is_databoard" @click="onAddNode(null)">Add</Button>
+    <hr/>
     <vue-tree-list
       @click="onClick"
       @change-name="onChangeName"
