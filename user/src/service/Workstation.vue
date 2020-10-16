@@ -12,8 +12,8 @@
       </ButtonGroup>
     </div>
     <hr/>
-    <Designer v-if="if_layer.designer"></Designer>
-    <Dashboard v-if="if_layer.dashboard"></Dashboard>
+    <Designer v-if="layer_name=='Dashboard'"></Designer>
+    <Dashboard v-if="layer_name=='Designer'"></Dashboard>
   </div>
 </template>
 
@@ -21,30 +21,26 @@
     import Designer from "./designer/Designer";
     import Dashboard from "./dashboard/Dashboard";
 
+    const layer_name_designer = "Designer";
+    const layer_name_dashboard = "Dashboard";
+
+
     export default {
         name: "Workstation",
         components: {Dashboard, Designer},
         data() {
             return {
-                layer_name: "Dashboard",
-                if_layer: {
-                    designer: true,
-                    dashboard: false,
-                },
+                layer_name: layer_name_designer,
             }
         },
         methods: {
             onClickSwitchLayerTab: function () {
-                let item_key_array = Object.keys(this._data.if_layer);
-                if (this._data.if_layer[item_key_array[0]]) {
-                    this._data.if_layer[item_key_array[0]] = false;
-                    this._data.if_layer[item_key_array[1]] = true;
-                    this._data.layer_name = "Designer";
+                if (this._data.layer_name == layer_name_designer) {
+                    this._data.layer_name = layer_name_dashboard;
                 } else {
-                    this._data.if_layer[item_key_array[0]] = true;
-                    this._data.if_layer[item_key_array[1]] = false;
-                    this._data.layer_name = "Dashboard";
+                    this._data.layer_name = layer_name_designer;
                 }
+                localStorage.setItem('workstation_layer',this._data.layer_name);
             },
             onClickSettings: function () {
                 this.$Message.info("Settings's page is not available");
@@ -52,7 +48,12 @@
             onClickHelp: function () {
                 this.$Message.info("Help's page is not available");
             },
-        }
+        },
+        created() {
+            const last_workstation_layer = localStorage.getItem('workstation_layer');
+            if (!last_workstation_layer) return;
+            this._data.layer_name = last_workstation_layer;
+        },
     }
 </script>
 

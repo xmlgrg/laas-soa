@@ -8,13 +8,6 @@ const routers = [
     component: (resolve) => require(['./service/Workstation.vue'], resolve)
   },
   {
-    path: '/navigation',
-    meta: {
-      title: 'Navigation'
-    },
-    component: (resolve) => require(['./service/Navigation.vue'], resolve)
-  },
-  {
     path: '/designer',
     meta: {
       title: 'Designer'
