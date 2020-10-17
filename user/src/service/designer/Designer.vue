@@ -15,9 +15,9 @@
             </BreadcrumbItem>
         </Breadcrumb>
       </span>
-<!--      <span style="margin-left: 30px;font-size: 22px;">-->
-<!--                id: {{directory.cur_id}}-->
-<!--      </span>-->
+      <span style="margin-left: 30px;font-size: 19px;">
+                {{directory.cur_id}}
+      </span>
     </div>
     <div style="height: 93vh;border: 1px solid #d6d6d6;">
         <span style="height:93vh;">
