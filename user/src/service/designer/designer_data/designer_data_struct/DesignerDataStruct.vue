@@ -1,9 +1,9 @@
 <template>
   <div>
     <DirectoryDescription :directory_id="directory_id"></DirectoryDescription>
-    <Button @click="init_table">Refresh</Button>
-    <i-button @click="init_insert_">Add</i-button>
-    <span style="user-select: text">table_prefix_name: designer_data_data_</span>
+    <Button @click="init_table" icon="ios-refresh">Refresh</Button>
+    <Button @click="init_insert_" icon="md-add">Add</Button>
+<!--    <span style="user-select: text">table_prefix_name: designer_data_data_</span>-->
     <i-table stripe border :columns="columns"
              :data="data"
              :loading="loading"

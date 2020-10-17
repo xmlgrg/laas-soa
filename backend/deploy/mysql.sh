@@ -41,7 +41,7 @@ docker logs -f mymysql
 docker exec -it mymysql /bin/bash
 
 # 连接mysql
-mysql -uroot -pTristan123
+mysql -u root -p
 
 # 修改访问设置
 ALTER USER 'laashub'@'%' IDENTIFIED WITH mysql_native_password BY 'laashub123';

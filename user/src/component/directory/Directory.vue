@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Button @click="init_tree">Refresh</Button>
-    <Button v-if="!is_databoard" @click="onAddNode(null)">Add</Button>
+    <Button @click="init_tree" icon="ios-refresh">Refresh</Button>
+    <Button v-if="!is_databoard" @click="onAddNode(null)" icon="md-add">Add</Button>
     <hr/>
     <vue-tree-list
       @click="onClick"
