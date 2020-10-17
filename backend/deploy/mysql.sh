@@ -7,7 +7,13 @@ mkdir -p /data/tristan/mysql/data
 
 #准备binlog
 # 上传mysql.cnf到服务器
-mv -f mysql.cnf /data/tristan/mysql/mysql.cnf
+#mv -f mysql.cnf /data/tristan/mysql/mysql.cnf
+sudo cat >> /data/tristan/mysql/mysql.cnf<<EOF
+[mysql]
+[mysqld]
+log-bin=binlog
+server-id=1
+EOF
 
 # 运行docker:
 docker stop mymysql
