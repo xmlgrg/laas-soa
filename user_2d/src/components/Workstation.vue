@@ -19,18 +19,50 @@
             // global area
             const bdm = {
                 draws_bdm: function (position) {
-                    svg.append("rect")  //添加一个矩形
+                    let g = svg.append('g').on("click", function () {
+                        // d3.select(this).style("color", "red");
+                        // alert(1);
+                    });
+                    g.append("rect")  //添加一个矩形
                         .attr("x", position.x)
                         .attr("y", position.y)
                         .attr("stroke-width", 2)
                         .attr("width", 50)
                         .attr("height", 50)
                         .attr("stroke", "black")
-                        .attr("fill", "white")
-                        .on("click", function () {
-                            // d3.select(this).style("color", "red");
-                            alert(1);
+                        .attr("fill", "white");
+                    let bdm_name_text = '';
+                    let appendBdmNameFunc = function () {
+                        let foreignObject = svg.append("foreignObject")
+                            .attr("x", position.x)
+                            .attr("y", position.y - 20 - 2)
+                            .attr("fill", "black")
+                            .attr("width", 200)
+                            .attr("height", 20)
+                            .html(function (d) {
+                                return '<input id="cur_input_id" type="text" value="' + bdm_name_text + '" autofocus="autofocus"/>'
+                            }).on('keydown', function (event) {
+                                let e = event || window.event || arguments.callee.caller.arguments[0];
+                                if (e && e.keyCode == 13) {
+                                    bdm_name_text = this.lastElementChild.value;
+                                    bdm_name.text(bdm_name_text);
+                                    this.remove()
+                                }
+                            });
+                        document.getElementById('cur_input_id').focus();
+                    };
+                    let bdm_name = g.append('text').text(bdm_name_text).attr('fill', 'white')
+                        .attr('x', position.x)
+                        .attr('y', position.y - 10)
+                        .attr('text-anchor', 'middle')
+                        .style('font-size', '20px')
+                        .attr("fill", "black")
+                        .on('click', function (d, i) {
+                            bdm_name.text('');
+                            appendBdmNameFunc()
                         });
+                    appendBdmNameFunc()
+
                 }
             };
 
