@@ -1,0 +1,8 @@
+# 全局安装vue脚手架
+npm install -g @vue/cli
+
+# 创建user_2d项目
+vue create user_2d
+
+# 安装d3依赖
+npm i --save d3
