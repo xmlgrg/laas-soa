@@ -45,8 +45,11 @@
                                 let e = event || window.event || arguments.callee.caller.arguments[0];
                                 if (e && e.keyCode == 13) {
                                     let bdm_name_text_new = this.lastElementChild.value;
+                                    if (bdm_name_text_new.length < 1) {
+                                        alert("bdm's name can't be null");
+                                        return;
+                                    }
                                     let offset_length = (bdm_name_text_new.length - bdm_name_text.length) * 11.758 / 2;
-                                    alert(offset_length);
                                     bdm_name_text = bdm_name_text_new;
                                     bdm_name.text(bdm_name_text);
                                     d3_rect.attr('width', parseInt(d3_rect.attr('width')) + offset_length);
