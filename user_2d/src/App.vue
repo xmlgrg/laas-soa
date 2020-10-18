@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <DrawRect></DrawRect>
+        <DBDesigner></DBDesigner>
     </div>
 </template>
 
 <script>
-  import DrawRect from "./components/DrawRect";
+  import DBDesigner from "./components/Workstation";
 
   export default {
         name: 'App',
         components: {
-            DrawRect,
+            DBDesigner,
         }
     }
 </script>
