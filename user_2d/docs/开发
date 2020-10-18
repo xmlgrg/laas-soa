@@ -6,3 +6,7 @@ vue create user_2d
 
 # 安装d3依赖
 npm i --save d3
+
+
+# 启动
+npm run server
