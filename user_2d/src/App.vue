@@ -1,13 +1,13 @@
 <template>
-    <div id="app">
+    <div id="app" style="border: 0px;margin: 0px;padding: 0px;">
         <DBDesigner></DBDesigner>
     </div>
 </template>
 
 <script>
-  import DBDesigner from "./components/Workstation";
+    import DBDesigner from "./components/Workstation";
 
-  export default {
+    export default {
         name: 'App',
         components: {
             DBDesigner,

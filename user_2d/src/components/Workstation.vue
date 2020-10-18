@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="border: 0px;margin: 0px;padding: 0px;">
     </div>
 </template>
 <script>
@@ -10,12 +10,12 @@
         name: "DBDesigner",
         mounted() {
             // base area
-            let width = window.innerWidth;
-            let height = window.innerHeight;
+            let width = window.screen.availWidth;
+            let height = window.screen.availHeight;
             let svg = d3.select('div')
                 .append('svg')
-                .attr('width', width)
-                .attr('height', height);
+                .attr('width', '99vw')
+                .attr('height', '97vh');
             // global area
             const bdm = {
                 draws_bdm: function (position) {
@@ -23,7 +23,7 @@
                         // d3.select(this).style("color", "red");
                         // alert(1);
                     });
-                    g.append("rect")  //添加一个矩形
+                    let d3_rect = g.append("rect")  //添加一个矩形
                         .attr("x", position.x)
                         .attr("y", position.y)
                         .attr("stroke-width", 2)
@@ -44,9 +44,14 @@
                             }).on('keydown', function (event) {
                                 let e = event || window.event || arguments.callee.caller.arguments[0];
                                 if (e && e.keyCode == 13) {
-                                    bdm_name_text = this.lastElementChild.value;
+                                    let bdm_name_text_new = this.lastElementChild.value;
+                                    let offset_length = (bdm_name_text_new.length - bdm_name_text.length) * 11.758 / 2;
+                                    alert(offset_length);
+                                    bdm_name_text = bdm_name_text_new;
                                     bdm_name.text(bdm_name_text);
-                                    this.remove()
+                                    bdm_name.attr('x', parseInt(bdm_name.attr('x')) + offset_length);
+                                    d3_rect.attr('width', parseInt(d3_rect.attr('width')) + offset_length);
+                                    this.remove();
                                 }
                             });
                         document.getElementById('cur_input_id').focus();
