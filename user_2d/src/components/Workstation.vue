@@ -49,8 +49,8 @@
                                     alert(offset_length);
                                     bdm_name_text = bdm_name_text_new;
                                     bdm_name.text(bdm_name_text);
-                                    bdm_name.attr('x', parseInt(bdm_name.attr('x')) + offset_length);
                                     d3_rect.attr('width', parseInt(d3_rect.attr('width')) + offset_length);
+                                    bdm_name.attr('x', parseInt(d3_rect.attr('x')) + bdm_name_text.length * 11.758 / 2);
                                     this.remove();
                                 }
                             });
