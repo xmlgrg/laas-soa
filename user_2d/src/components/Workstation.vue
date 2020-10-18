@@ -22,19 +22,24 @@
                     svg.append("rect")  //添加一个矩形
                         .attr("x", position.x)
                         .attr("y", position.y)
+                        .attr("stroke-width", 2)
                         .attr("width", 50)
                         .attr("height", 50)
                         .attr("stroke", "black")
-                        .attr("fill", "none")
-
+                        .attr("fill", "white")
+                        .on("click", function () {
+                            // d3.select(this).style("color", "red");
+                            alert(1);
+                        });
                 }
             };
 
             document.oncontextmenu = function (event) { // make the chrome browser's right click don't show the page menu list
                 event.preventDefault();
             };
-            document.body.onmousedown = function (e) {
+            document.getElementsByTagName('svg')[0].onmousedown = function (e) {
                 if (e.button == 2) { // right button click
+                    // if already have dbm, do bdm's operation
                     bdm.draws_bdm({x: e.clientX, y: e.clientY});
                 } else if (e.button == 0) { // left button click
                 } else if (e.button == 1) { // scroll button click
