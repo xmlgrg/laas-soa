@@ -23,7 +23,7 @@
                         // d3.select(this).style("color", "red");
                         // alert(1);
                     });
-                    let d3_rect = g.append("rect")  //添加一个矩形
+                    let d3_rect = g.append("rect")
                         .attr("x", position.x)
                         .attr("y", position.y)
                         .attr("stroke-width", 2)
@@ -40,7 +40,7 @@
                             .attr("width", 200)
                             .attr("height", 20)
                             .html(function (d) {
-                                return '<input id="cur_input_id" type="text" value="' + bdm_name_text + '" autofocus="autofocus"/>'
+                                return '<input id="cur_input_id" type="text" value="' + bdm_name_text + '" autofocus="autofocus"/>' + `test`
                             }).on('keydown', function (event) {
                                 let e = event || window.event || arguments.callee.caller.arguments[0];
                                 if (e && e.keyCode == 13) {
@@ -59,6 +59,8 @@
                             });
                         document.getElementById('cur_input_id').focus();
                     };
+
+
                     let bdm_name = g.append('text').text(bdm_name_text).attr('fill', 'white')
                         .attr('x', position.x)
                         .attr('y', position.y - 10)
@@ -69,6 +71,7 @@
                             bdm_name.text('');
                             appendBdmNameFunc()
                         });
+
                     appendBdmNameFunc()
 
                 }
