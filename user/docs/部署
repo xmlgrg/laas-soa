@@ -1,3 +1,0 @@
-在当前目录下运行: npm run install 进行安装依赖
-运行: npm run build 编译成静态文件可供nginx直接使用, 注意修改nginx的配置文件配置使用vue的路由, 而不是纯粹的又vue的首页进行加载路由, 实现路径可以直接访问模块路径
-可以直接结合nginx进行部署, 配置指向dist目录下的index.html
