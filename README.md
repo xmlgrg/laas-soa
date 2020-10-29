@@ -8,7 +8,7 @@
 
 应用领域为: 研发领域的各个领域(如: 开发、测试、产品), 对外展现为变更系统和运维系统
 
-## 落地可持续运作的运维领域
+## 落地可持续运作的运维领域([laas-soa-operate](https://github.com/laashub-soa/laas-soa-operate))
 
 抽离数据+指令, 编辑时数据使用CMDB作为载体, 数据查询/增加/修改/删除/订阅变更, 在线直接编辑生成CMDB数据, 数据具有版本特点(溯源: 版本/修改人), 使用时后台直接使用数据即可; 指令需要和agent进行联动, agent切入到目标环境, 接口指令执行并返回结果, 系统可以在任意环境部署, 但是指令会自动部署在需要的环境中, 与系统保持联系(主动/被动/数据订阅); 
 
@@ -18,7 +18,7 @@
 
 同时支持数据模型的横向领域的数据模型建设, 数据状态变更、数据组合
 
-## 落地可持续运作的应用领域
+## 落地可持续运作的应用领域([laas-soa-apply](https://github.com/laashub-soa/laas-soa-apply))
 
 用户、角色、权限、流程、表单(与CMDB联动)、动作;
 
@@ -32,7 +32,7 @@
 
 在变更时自动作为作为多流程组合
 
-## 同时落地可持续运作的监控领域
+## 同时落地可持续运作的监控领域([laas-soa-monitor](https://github.com/laashub-soa/laas-soa-monitor))
 
 基于CMDB会自动落地监控系统, 完成metrics和tracing数据采集、展示、分析、告警, metrics为数据状态指标, 软件-功能-指标的状态及性能指标, tracing为数据过程指标, 软件-功能-指标的过程数据
 
@@ -40,15 +40,23 @@
 
 与sli-slo-sla思路保持一致
 
-## 同时落地可持续运作的安全领域
+## 同时落地可持续运作的安全领域([laas-soa-security](https://github.com/laashub-soa/laas-soa-security))
 
 操作数据审计、数据监测
 
-## 研发流程(暂略)
+## 研发(暂略)([laas-soa-develop](https://github.com/laashub-soa/laas-soa-develop))
 
-暂略
+暂略(支撑研发流程)
 
-# 总结
+使用工具:
+
+​	源码管理: gitlab
+
+​	文档管理: iwiki
+
+​	okr管理: tapd
+
+​	api文档管理: showdoc
 
 基于这种运维系统, 支撑运维在运维系统中进行常规运维, 在常规运维的基础上进行自动化改造, 运维开发进行填充骨骼, 使用人员使用骨骼思路, 关注自己需要的业务, 基于审批流实现自动化使用
 
