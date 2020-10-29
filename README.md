@@ -40,6 +40,8 @@
 
 与sli-slo-sla思路保持一致
 
+同时, log(日志)也是同等重要的
+
 ## 同时落地可持续运作的安全领域([laas-soa-security](https://github.com/laashub-soa/laas-soa-security))
 
 操作数据审计、数据监测
