@@ -1,3 +1,5 @@
+server:
+  port: 8080
 mysql:
   ip: 192.168.
   port: 3306
