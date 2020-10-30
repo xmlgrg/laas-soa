@@ -1,0 +1,6 @@
+mysql:
+  ip: 192.168.
+  port: 3306
+  username: root
+  password: tristan123
+  db_name: tristan

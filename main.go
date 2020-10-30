@@ -28,11 +28,7 @@ func main() {
 	doInit()
 	flag.Parse()
 	log.SetFlags(0)
-
-	http.HandleFunc("/insert_business", insertBusiness)
-	http.HandleFunc("/select_consume_business", selectConsumeBusiness)
-	http.HandleFunc("/select_data", selectData)
-
 	log.Println("server started")
+	InitRoute()
 	log.Fatal(http.ListenAndServe(*addr, nil))
 }
