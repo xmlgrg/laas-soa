@@ -14,7 +14,7 @@ import config
 
 config.init()
 
-app = Flask(__name__, static_folder='workstation/dist')
+app = Flask(__name__, static_folder='frontend/dist')
 
 app.config['JSON_AS_ASCII'] = False
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -50,6 +50,8 @@ mymysql.init(config.app_conf["mysql"])
 
 if not os.path.exists("logs"):
     os.mkdir("logs")
+if not os.path.exists("temp"):
+    os.mkdir("temp")
 formatter = logging.Formatter("[%(asctime)s][%(filename)s:%(lineno)d][%(levelname)s][%(thread)d] - %(message)s")
 handler = TimedRotatingFileHandler("logs/flask.log", when="D", interval=1, backupCount=15, encoding="UTF-8",
                                    delay=False, utc=True)

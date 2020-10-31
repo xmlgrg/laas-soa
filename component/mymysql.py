@@ -3,8 +3,8 @@ from contextlib import closing
 import pymysql
 from DBUtils.PooledDB import PooledDB
 
-from . import mymysql
-from ..exception import MyServiceException
+from component import mymysql
+from exception import MyServiceException
 
 db_pool = None
 """

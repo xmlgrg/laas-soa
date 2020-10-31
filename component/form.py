@@ -2,7 +2,7 @@ import json
 
 from flask import request
 
-from ..exception import MyServiceException
+from exception import MyServiceException
 
 
 def check(check_data_keys=[]):

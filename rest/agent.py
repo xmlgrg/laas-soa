@@ -8,6 +8,6 @@ from component import mymysql
 app = Blueprint('agent', __name__, url_prefix='/agent')
 
 
-@app.route('/select', methods=['POST'])
-def select():
-    return {"": ""}
+@app.route('/consume_thing', methods=['POST'])
+def consume_thing():
+    return json.dumps({"test": "test"})

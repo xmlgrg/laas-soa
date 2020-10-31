@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from . import config
+import config
 
 project_root_path = os.getcwd()
 app_conf = None
