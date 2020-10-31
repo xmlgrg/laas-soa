@@ -3,6 +3,7 @@ server:
 mysql:
   host: 192.168.121.131
   port: 3306
-  username: root
+  database: tristan
+  user: tristan
   password: tristan123
-  db_name: tristan
+  charset: utf8mb4
