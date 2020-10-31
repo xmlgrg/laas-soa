@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"flag"
-	"github.com/laashub-soa/laas-soa/component"
+	"github.com/laashub-soa/laas-soa/backup/component"
 	"log"
 	"net/http"
 )

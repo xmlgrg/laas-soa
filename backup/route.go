@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/laashub-soa/laas-soa/service"
+	"github.com/laashub-soa/laas-soa/backup/service"
 	"net/http"
 )
 
