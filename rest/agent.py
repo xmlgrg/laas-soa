@@ -47,7 +47,7 @@ def insert_business():
         business_data_pool[business_type] = {}
     business_data_pool[business_type][business_id] = business_data
 
-    return "SUCCESS"
+    return json.dumps({"status": "SUCCESS"})
 
 
 # 消费业务
@@ -65,24 +65,23 @@ def consume_business():
             return False
         return True
 
-    for business_type in business_type_list:
-        if not check(business_type):
-            consume_business_lock.release()
-            continue
+    if business_type_list and len(business_type_list) > 0:
+        for business_type in business_type_list:
+            if not check(business_type):
+                continue
 
-        # 删除业务记录
-        business_id = business_pool[business_type].pop()
-        # 取出业务数据
-        business_data = business_data_pool[business_type].pop(business_id)
+            # 删除业务记录
+            business_id = business_pool[business_type].pop()
+            # 取出业务数据
+            business_data = business_data_pool[business_type].pop(business_id)
 
-        # 修改业务执行状态为已消费
-        if business_type not in business_execute_status_pool:
-            business_execute_status_pool[business_type] = {}
-        business_execute_status_pool[business_type][business_id] = "CONSUMED"
-        consume_business_lock.release()
-        result.append({
-            "business_type": business_type,
-            "business_data": business_data
-        })
-
-    return json.dumps(result)
+            # 修改业务执行状态为已消费
+            if business_type not in business_execute_status_pool:
+                business_execute_status_pool[business_type] = {}
+            business_execute_status_pool[business_type][business_id] = "CONSUMED"
+            result.append({
+                "business_type": business_type,
+                "business_data": business_data
+            })
+    consume_business_lock.release()
+    return json.dumps({"business_type_list": result})
