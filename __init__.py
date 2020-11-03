@@ -14,7 +14,7 @@ import config
 
 config.init()
 
-app = Flask(__name__, static_folder='frontend/dist')
+app = Flask(__name__)
 
 app.config['JSON_AS_ASCII'] = False
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -31,6 +31,12 @@ def index():
     return app.send_static_file("index.html")
 
 
+# 初始化路由
+import route
+
+route.init()
+
+
 @app.errorhandler(500)
 def error(e):
     e = e.original_exception
@@ -41,10 +47,6 @@ def error(e):
         return custom_res
     return e
 
-
-from rest import agent
-
-app.register_blueprint(agent.app)
 
 mymysql.init(config.app_conf["mysql"])
 
