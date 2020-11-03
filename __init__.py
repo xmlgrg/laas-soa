@@ -11,6 +11,7 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from exception import MyServiceException
 import config
+import route
 
 config.init()
 
@@ -31,10 +32,7 @@ def index():
     return app.send_static_file("index.html")
 
 
-# 初始化路由
-import route
-
-route.init()
+route.init(app)
 
 
 @app.errorhandler(500)
