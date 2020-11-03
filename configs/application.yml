@@ -1,7 +1,7 @@
 server:
   port: 8080
 mysql:
-  host: 192.168.121.131
+  host: 192.168.121.134
   port: 3306
   database: tristan
   user: tristan
