@@ -956,9 +956,9 @@
 												"$ref": "AAAAAAF1kke7zPj3XeE="
 											},
 											"font": "Arial;13;0",
-											"left": 252,
+											"left": 251,
 											"top": 280,
-											"width": 360.38818359375,
+											"width": 363.2509765625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -1670,9 +1670,9 @@
 												"$ref": "AAAAAAF1kqwD0PbeZyY="
 											},
 											"font": "Arial;13;0",
-											"left": 751,
+											"left": 750,
 											"top": 488,
-											"width": 260.72998046875,
+											"width": 263.5673828125,
 											"height": 13,
 											"alpha": 1.6004162880311608,
 											"distance": 135.05924625881784,
@@ -1892,9 +1892,9 @@
 												"$ref": "AAAAAAF1krBIcPc0F1A="
 											},
 											"font": "Arial;13;0",
-											"left": 752,
+											"left": 750,
 											"top": 651,
-											"width": 221.72998046875,
+											"width": 224.5673828125,
 											"height": 13,
 											"alpha": 1.5794158021639253,
 											"distance": 116.00431026474836,
@@ -2336,9 +2336,9 @@
 												"$ref": "AAAAAAF1krS0IveePG8="
 											},
 											"font": "Arial;13;0",
-											"left": 751,
+											"left": 750,
 											"top": 851,
-											"width": 208.72998046875,
+											"width": 211.5673828125,
 											"height": 13,
 											"alpha": 1.5799693804983976,
 											"distance": 109.00458705944443,
@@ -2558,9 +2558,9 @@
 												"$ref": "AAAAAAF1krYdiffZFp8="
 											},
 											"font": "Arial;13;0",
-											"left": 168,
+											"left": 166,
 											"top": 1012,
-											"width": 455.72998046875,
+											"width": 458.5673828125,
 											"height": 13,
 											"alpha": 0.3883187978184992,
 											"distance": 47.53945729601885,
@@ -3310,7 +3310,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF1kj7Mw/d3WGg="
 					},
-					"name": "Role1"
+					"name": "Role1",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -3318,7 +3319,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF1kj7Mw/d3WGg="
 					},
-					"name": "Role2"
+					"name": "Role2",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -3326,7 +3328,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF1kj7Mw/d3WGg="
 					},
-					"name": "Role3"
+					"name": "Role3",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
