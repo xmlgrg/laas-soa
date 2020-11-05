@@ -6,7 +6,7 @@
 
 def compose():
     """
-    流程编排
+    编排流程
     镜像 > 容器
     编排
 
@@ -19,6 +19,14 @@ def compose():
 def select():
     """
     查询流程
+    :return:
+    """
+    pass
+
+
+def select_log():
+    """
+    查询流程日志
     :return:
     """
     pass
