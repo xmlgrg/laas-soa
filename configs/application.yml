@@ -7,3 +7,5 @@ mysql:
   user: tristan
   password: tristan123
   charset: utf8mb4
+gitlab:
+  url_prefix: http://git.wjh.com
