@@ -60,8 +60,9 @@ def select():
         select_value[item] = search[item]
         if 'did' == item:
             continue
-        select_sql_where += ' and ' + item + ' = %(' + item + ')s'
-        select_value[item] = search[item]
+        r"/"
+        select_sql_where += ' and ' + item + ' like %(' + item + ')s'
+        select_value[item] = '%' + str(search[item]) + '%'
 
     # page
     page_total = mymysql.execute(
