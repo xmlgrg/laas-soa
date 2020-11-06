@@ -7,7 +7,6 @@ def init(app):
     from rest.operate.cmdb import directory as operate_cmdb_directory
     from rest.operate.cmdb import struct as operate_cmdb_struct
     # 变更
-    from rest.change.workflow import struct as change_workflow_struct
 
     # 注册路由
     app.register_blueprint(agent.app)
@@ -16,4 +15,3 @@ def init(app):
     app.register_blueprint(operate_cmdb_data.app)
     app.register_blueprint(operate_cmdb_directory.app)
     app.register_blueprint(operate_cmdb_struct.app)
-    app.register_blueprint(change_workflow_struct.app)
