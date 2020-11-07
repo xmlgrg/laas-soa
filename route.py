@@ -1,4 +1,5 @@
 def init(app):
+    from rest import ping
     # 运维
     from rest import agent
     from rest.operate.business import data as operate_business_data
@@ -9,6 +10,7 @@ def init(app):
     # 变更
 
     # 注册路由
+    app.register_blueprint(ping.app)
     app.register_blueprint(agent.app)
     app.register_blueprint(operate_business_data.app)
     app.register_blueprint(operate_business_directory.app)
