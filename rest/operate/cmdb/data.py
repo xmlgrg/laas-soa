@@ -146,3 +146,14 @@ def delete():
     return json.dumps(mymysql.execute(
         'delete from ' + designer_data_data_table_name + ' where id = %(id)s ',
         request_data))
+
+
+def select_by_data_id__data_data_id(data_id, data_data_id):
+    """
+    查询指定表的指定数据
+    :param data_id: 表id
+    :param data_data_id: 数据id
+    :return:
+    """
+    return json.loads(
+        json.dumps(mymysql.execute("select * from designer_data_data_%s where id=%s" % (data_id, data_data_id))))
