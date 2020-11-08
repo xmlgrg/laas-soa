@@ -9,5 +9,5 @@
 import logging
 
 
-def build_project(data_id):
-    logging.warning("data_id: ", data_id)
+def build_project(executor_data_id, data_id, data_data_id):
+    logging.warning("executor_data_id: %s data_id: %s data_data_id: %s" % (executor_data_id, data_id, data_data_id))
