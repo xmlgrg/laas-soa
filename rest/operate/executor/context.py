@@ -7,7 +7,7 @@ from rest.operate.cmdb import data
 """
 
 
-def get_startup_parameters(data_id, data_data_id):
+def select_by_data_id__data_data_id(data_id, data_data_id):
     """
     得到业务数据
     :param data_id:
