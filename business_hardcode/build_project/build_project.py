@@ -80,8 +80,11 @@ def build_project(executor_data_id, data_id, data_data_id):
             # 同步数据、业务脚本目录到服务器
             context.sync_dirs_2_remote(host_build, local_executor_root_path, remote_executor_root_path,
                                        ["data_data", "business_hyper_fusion"])
+            # 同步启动文件到服务器
+            context.sync_files_2_remote(host_build, local_executor_root_path, remote_executor_root_path, ["startup.py"])
             with open(local_update_datetime_record_path, 'w')as f:
                 f.write(latest_update_datetime_record)
+        # 当前数据文件
     except Exception as e:
         traceback.print_exc()
         context.log(str(e))
