@@ -172,3 +172,9 @@ CD
 # 记录
 
 监控、优化、执行、监控
+
+# 交流
+
+QQ群: 1048078121
+
+![docs/communicate/QQ-LaaS-SOA-1群二维码.png](README.assets/QQ-LaaS-SOA-1群二维码.png)
