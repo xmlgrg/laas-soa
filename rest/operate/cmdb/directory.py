@@ -40,6 +40,8 @@ def insert():
     json.dumps(mymysql.execute("""
                 CREATE TABLE designer_data_data_%(id)s (
                     id int(11) NOT NULL AUTO_INCREMENT,
+                    update_datetime timestamp not null default current_timestamp on update current_timestamp,
+                    create_datetime timestamp not null default current_timestamp,
                     PRIMARY KEY (id)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         """, {
