@@ -25,18 +25,18 @@ def build_project(executor_data_id, data_id, data_data_id):
         context.log("执行器已启动: data_id: %s data_data_id: %s" % (data_id, data_data_id))
         # 得到执行器执行时的初始业务数据
         business_data = context.select_data_by_data_id__data_data_id(data_id, data_data_id)[0]
-        # [{'id': 8, 'git_server': '1', 'project_name': '仓库系统', 'gitlab_id': '43',
-        # 'branches': 'master', 'tags': '', 'program_language': 'java', 'docker_registry_id': '1'}]
+        """
+        [{'id': 8, 'git_server': '1', 'project_name': '仓库系统', 'gitlab_id': '43',
+            'branches': 'master', 'tags': '', 'program_language': 'java', 'docker_registry_id': '1'}]
+        """
         context.log("startup_parameters: " + str(business_data))
         # 启动执行器执行业务
         # 使用构建服务器, 连接到目标服务器
         host_build = context.select_data_by_data_id__data_data_id(15, 1)[0]  # 查询服务器连接信息
         context.log('host_build: ' + str(host_build))
         # 准备远程目录
-        context.log(context.prepare_remote_dirs(host_build, [remote_executor_root_path]))
+        context.log(context.declare_remote_dirs(host_build, [remote_executor_root_path]))
         # 连接到执行器
-        local_file_2_remote_host_list = []
-        local_path_temp = ""
         # 获取最新版本的数据, 保存数据到本地, 同步最新版本的数据到执行器目录
         """
         data_data:
@@ -51,7 +51,7 @@ def build_project(executor_data_id, data_id, data_data_id):
             context.select_data_by_data_id__data_data_id('4', business_data['docker_registry_id'])[0]
         context.write_data_data_2_file(data_data_docker_registry,
                                        local_executor_data_data_path + '/docker_registry.json')
-        # context.sync_local_files_2_remote_server(host_build, local_file_2_remote_host_list)
+        context.sync_dirs_2_remote(host_build, local_executor_root_path, remote_executor_root_path, ["data_data"])
 
         # 获取最新版本的业务, 保存业务到本地, 同步最新版本的业务到执行器
         """

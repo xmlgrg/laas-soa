@@ -5,10 +5,10 @@ import threading
 
 import paramiko
 
+from exception import MyServiceException
 from rest.operate.cmdb import data
 
 global_data = threading.local()
-print(global_data)
 """
 上下文环境
 """
@@ -74,7 +74,7 @@ def prepare_local_dirs(dir_list):
             os.makedirs(item)
 
 
-def prepare_remote_dirs(host_conf, dir_list, permission=None):
+def declare_remote_dirs(host_conf, dir_list, permission=None):
     """
     准备远程目录列表
     :param host_conf:
@@ -91,53 +91,74 @@ def prepare_remote_dirs(host_conf, dir_list, permission=None):
     return execute_remote_command(host_conf, command_str)
 
 
-def sync_local_files_2_remote_server(host_conf, local_file_2_remote_host_list):
+def get_local_files(local_dir, is_top_level=True):
     """
-    同步本地文件到远程服务器
-    :param host_conf:
-    :param local_file_2_remote_host_list:
-    :return:
-    """
-    t = paramiko.Transport((host_conf['ip'], host_conf['port']))
-    t.connect(username=host_conf['username'], password=host_conf['password'])
-    sftp = paramiko.SFTPClient.from_transport(t)
-    for item in local_file_2_remote_host_list:
-        sftp.put(item["local"], item["remote"])
-    t.close()
-
-
-def get_files_in_local_dir(local_dir):
-    """
-    获取本地目录中文件列表
+    获取本地目录中文件列表(不区分文件或者文件夹)
     :param local_dir:
+    :param is_top_level:
     :return:
     """
-    all_files = list()
+    all_files = []
+    if is_top_level:
+        all_files.append(local_dir + "/")
     files = os.listdir(local_dir)
     for x in files:
-        filename = os.path.join(local_dir, x)
-        if os.path.isdir(x):
-            all_files.extend(get_files_in_local_dir(filename))
+        filename = local_dir + "/" + x
+        if os.path.isdir(filename):
+            all_files.append(filename + "/")
+            all_files.extend(get_local_files(filename, False))
         else:
             all_files.append(filename)
     return all_files
 
 
-def sync_2_remote_dir(host_conf, local_dir, remote_dir):
+def convert_local_files_2_remote_files(local_files, local_basic_dir, remote_basic_dir):
     """
-    同步到远程目录
-    两种实现方式, 判断条件为文件夹中文件数量是否超过一定数量
-        1、当超过时, 打包文件夹成tar包, 传输tar包到远程服务器指定的目录, 解压tar包
-        2、当没超过时, 遍历文件夹进行单个传输到指定路径
+    转换本地目录为远程目录
+    :param local_files:
+    :param local_basic_dir:
+    :param remote_basic_dir:
     :return:
     """
-    t = paramiko.Transport(sock=(host_conf['ip'], host_conf['port']))
+    result = []
+    for item in local_files:
+        result.append(item.replace(local_basic_dir, remote_basic_dir))
+    return result
+
+
+def sync_dirs_2_remote(host_conf, local_basic_dir, remote_basic_dir, dir_name_list):
+    """
+    同步本地文件夹列表到远程服务器
+    两种实现方式, 判断条件为文件夹中文件数量是否超过一定数量
+    1、当超过时, 打包文件夹成tar包, 传输tar包到远程服务器指定的目录, 解压tar包
+    2、当没超过时, 遍历文件夹进行单个传输到指定路径
+    :param host_conf:
+    :param local_basic_dir:
+    :param remote_basic_dir:
+    :param dir_name_list:
+    :return:
+    """
+    if not isinstance(dir_name_list, list):
+        raise MyServiceException("目录名称参数必须为数组")
+    t = paramiko.Transport(sock=(host_conf['ip'], int(host_conf['port'])))
     t.connect(username=host_conf['username'], password=host_conf['password'])
     sftp = paramiko.SFTPClient.from_transport(t)
-    if remote_dir[-1] == '/':
-        remote_dir = remote_dir[0:-1]
-    files = get_files_in_local_dir(local_dir)
-    for x in files:
-        filename = os.path.split(x)[-1]
-        remote_filename = remote_dir + '/' + filename
-        sftp.put(x, remote_filename)
+    for dir_name in dir_name_list:
+        # 先移除, 保险起见应该是先上传到该同级_upload_temp路径, 再删除
+        execute_remote_command(host_conf, "rm -rf " + remote_basic_dir + "/" + dir_name)
+        local_files = get_local_files(local_basic_dir + "/" + dir_name)
+        remote_files = convert_local_files_2_remote_files(local_files, local_basic_dir, remote_basic_dir)
+        for index in range(len(local_files)):
+            local_file = local_files[index]
+            remote_file = remote_files[index]
+            if local_file.endswith("/"):
+                try:
+                    sftp.mkdir(remote_file[:-1])
+                except IOError:
+                    pass
+                continue
+            sftp.put(local_file, remote_file)
+
+    # 关闭sftp
+    sftp.close()
+    t.close()
