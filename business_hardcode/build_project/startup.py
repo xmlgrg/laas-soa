@@ -1,8 +1,6 @@
 business_data_temp = {
     "java": {
-        "startup.sh": """
-        
-        """
+        "startup.sh": ""
     }
 }
 business_data_version_temp = {
@@ -10,3 +8,8 @@ business_data_version_temp = {
 
     }
 }
+
+
+
+# 准备目录
+# 依次执行业务
