@@ -41,34 +41,43 @@ dependency_lib通过放置缓存的依赖库文件、远程依赖库配置
 
 <执行器根目录>
 	<业务id>
+		startup.py
+		business_hyper_fusion:
+            java:
+                do_build_project.sh
+                build_project.sh
+                clean_build_project.sh
+                startup.sh
+                Dockerfile
+                do_build_docker.sh
+                clean_build_docker.sh
+        data_data:
+        	git_server.json
+			docker_registry.json
+			docker_registry_password.txt
 		cache
 			dependency_lib
 				java
-			data_data_git_server.json
-			data_data_docker_registry.json
-			data_data_docker_registry_password.txt
-			build_script:
-				java:
-					do_build_project.sh
-					build_project.sh
-					clean_build_project.sh
-					startup.sh
-					Dockerfile
-					do_build_docker.sh
-					clean_build_docker.sh
+				nodejs
 		run
 			<执行器id>
-				cache
-				branches
-					<分支名>
-						source
-						build
-				tags
-					<标签名>
-						source
-						build
+				<源码仓库地址转目录>
+                    <项目访问后部分目录>
+                        cache
+                        	dependency_lib
+                        branches
+                            <分支名>
+                                source
+                                build
+                        tags
+                            <标签名>
+                                source
+                                build
 
-借助docker进行构建时, 需要挂载 /<执行器根目录>/<业务id>/cache 和 /<执行器根目录>/<业务id>/run/<执行器id>
+
+借助docker进行构建时, 需要挂载:
+	/<执行器根目录>/<业务id>/cache
+	/<执行器根目录>/<业务id>/run/<执行器id>/<源码仓库地址转目录>/<项目访问后部分目录>
 ```
 
 cache中保存该仓库的构建缓存数据, source中存源码, build中存构建脚本文件, 使用version文件记录构建脚本文件的版本, 当版本一致时则不拉取最新构建脚本, 反之则拉取最新构建脚本
@@ -255,12 +264,12 @@ ENTRYPOINT ["./startup.sh"]
 
 # 开发
 
-状态、日志会增量收集同步到服务器上(filebeat)
+通过各个语言
 
 暂时将该数据保存到代码内部的字符串中, 在字符串内部使用{key}引用外部变量, 在使用时使用字符串的format函数传递key:value到字符串中
 
 ```
-准备目录, 依次启动shell
+在startup.py中准备目录, 依次加载shell文件内进行执行
 
 
 do_build_project.sh:
@@ -305,6 +314,8 @@ clean_build_docker.sh
 docker rm execute_business_1_1
 docker rm <镜像id>
 ```
+
+状态、日志会增量收集同步到服务器上(filebeat)
 
 # 一些问题
 
