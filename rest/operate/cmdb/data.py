@@ -1,5 +1,6 @@
 import json
 
+from bson.json_util import dumps
 from flask import Blueprint
 
 from component import form
@@ -156,4 +157,4 @@ def select_by_data_id__data_data_id(data_id, data_data_id):
     :return:
     """
     return json.loads(
-        json.dumps(mymysql.execute("select * from designer_data_data_%s where id=%s" % (data_id, data_data_id))))
+        dumps(mymysql.execute("select * from designer_data_data_%s where id=%s" % (data_id, data_data_id))))
