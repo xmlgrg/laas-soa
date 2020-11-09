@@ -51,8 +51,8 @@ def build_project(executor_data_id, data_id, data_data_id):
             context.select_data_by_data_id__data_data_id('4', business_data['docker_registry_id'])[0]
         context.write_data_data_2_file(data_data_docker_registry,
                                        local_executor_data_data_path + '/docker_registry.json')
+        # 同步数据目录到服务器
         context.sync_dirs_2_remote(host_build, local_executor_root_path, remote_executor_root_path, ["data_data"])
-
         # 获取最新版本的业务, 保存业务到本地, 同步最新版本的业务到执行器
         """
         business_hyper_fusion:
