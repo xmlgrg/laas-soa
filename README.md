@@ -177,4 +177,4 @@ CD
 
 QQ群: 1048078121
 
-![docs/communicate/QQ-LaaS-SOA-1群二维码.png](README.assets/QQ-LaaS-SOA-1群二维码.png)
+![docs/communicate/QQ-LaaS-SOA-1群二维码.png](docs/communicate/QQ-LaaS-SOA-1群二维码.png)
