@@ -165,3 +165,30 @@ def sync_dirs_2_remote(host_conf, local_basic_dir, remote_basic_dir, dir_name_li
     # 关闭sftp
     sftp.close()
     t.close()
+
+
+def sync_files_2_remote(host_conf, local_basic_dir, remote_basic_dir, file_name_list):
+    """
+    同步文件列表到服务器
+    :param host_conf:
+    :param local_basic_dir:
+    :param remote_basic_dir:
+    :param file_name_list:
+    :return:
+    """
+    if not isinstance(file_name_list, list):
+        raise MyServiceException("文件名称参数必须为数组")
+    t = paramiko.Transport(sock=(host_conf['ip'], int(host_conf['port'])))
+    t.connect(username=host_conf['username'], password=host_conf['password'])
+    sftp = paramiko.SFTPClient.from_transport(t)
+    for file_name in file_name_list:
+        local_file = local_basic_dir + "/" + file_name
+        remote_file = remote_basic_dir + "/" + file_name
+        log("sftp putting %s to %s" % (local_file, remote_file))
+        sftp.put(local_file, remote_file)
+        log("sftp putted %s to %s" % (local_file, remote_file))
+    log("sync local:[%s] to remote:[%s] dirs:[%s] success" % (
+        str(local_basic_dir), str(remote_basic_dir), str(file_name_list)))
+    # 关闭sftp
+    sftp.close()
+    t.close()
