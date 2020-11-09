@@ -157,8 +157,11 @@ def sync_dirs_2_remote(host_conf, local_basic_dir, remote_basic_dir, dir_name_li
                 except IOError:
                     pass
                 continue
+            log("sftp putting %s to %s" % (local_file, remote_file))
             sftp.put(local_file, remote_file)
-
+            log("sftp putted %s to %s" % (local_file, remote_file))
+    log("sync local:[%s] to remote:[%s] dirs:[%s] success" % (
+        str(local_basic_dir), str(remote_basic_dir), str(dir_name_list)))
     # 关闭sftp
     sftp.close()
     t.close()

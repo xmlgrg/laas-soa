@@ -19,6 +19,13 @@ context.prepare_local_dirs([local_executor_data_data_path])
 
 
 def build_project(executor_data_id, data_id, data_data_id):
+    """
+    构建项目
+    :param executor_data_id:
+    :param data_id:
+    :param data_data_id:
+    :return:
+    """
     # 记录全局数据
     context.global_data.executor_data_id = executor_data_id
     try:
@@ -51,8 +58,6 @@ def build_project(executor_data_id, data_id, data_data_id):
             context.select_data_by_data_id__data_data_id('4', business_data['docker_registry_id'])[0]
         context.write_data_data_2_file(data_data_docker_registry,
                                        local_executor_data_data_path + '/docker_registry.json')
-        # 同步数据目录到服务器
-        context.sync_dirs_2_remote(host_build, local_executor_root_path, remote_executor_root_path, ["data_data"])
         # 获取最新版本的业务, 保存业务到本地, 同步最新版本的业务到执行器
         """
         business_hyper_fusion:
@@ -65,13 +70,9 @@ def build_project(executor_data_id, data_id, data_data_id):
                 do_build_docker.sh
                 clean_build_docker.sh
         """
-
-        do_build_project(executor_data_id, business_data, host_build)
+        # 同步数据、业务脚本目录到服务器
+        context.sync_dirs_2_remote(host_build, local_executor_root_path, remote_executor_root_path,
+                                   ["data_data", "business_hyper_fusion"])
     except Exception as e:
         traceback.print_exc()
         context.log(str(e))
-
-
-def do_build_project(executor_data_id, business_data, host_build):
-    # # 测试
-    context.log(context.execute_remote_command(host_build, 'ls -alh /'))
