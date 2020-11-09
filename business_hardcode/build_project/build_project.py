@@ -19,21 +19,21 @@ context.prepare_local_dirs([local_executor_data_data_path])
 
 
 def build_project(executor_data_id, data_id, data_data_id):
+    # 记录全局数据
+    context.global_data.executor_data_id = executor_data_id
     try:
-        context.log(executor_data_id,
-                    "执行器已启动: executor_data_id: %s data_id: %s data_data_id: %s" % (
-                        executor_data_id, data_id, data_data_id))
+        context.log("执行器已启动: data_id: %s data_data_id: %s" % (data_id, data_data_id))
         # 得到执行器执行时的初始业务数据
         business_data = context.select_data_by_data_id__data_data_id(data_id, data_data_id)[0]
         # [{'id': 8, 'git_server': '1', 'project_name': '仓库系统', 'gitlab_id': '43',
         # 'branches': 'master', 'tags': '', 'program_language': 'java', 'docker_registry_id': '1'}]
-        context.log(executor_data_id, "startup_parameters: " + str(business_data))
+        context.log("startup_parameters: " + str(business_data))
         # 启动执行器执行业务
         # 使用构建服务器, 连接到目标服务器
         host_build = context.select_data_by_data_id__data_data_id(15, 1)[0]  # 查询服务器连接信息
-        context.log(executor_data_id, 'host_build: ' + str(host_build))
+        context.log('host_build: ' + str(host_build))
         # 准备远程目录
-        context.log(executor_data_id, context.prepare_remote_dirs(host_build, [remote_executor_root_path]))
+        context.log(context.prepare_remote_dirs(host_build, [remote_executor_root_path]))
         # 连接到执行器
         local_file_2_remote_host_list = []
         local_path_temp = ""
@@ -69,9 +69,9 @@ def build_project(executor_data_id, data_id, data_data_id):
         do_build_project(executor_data_id, business_data, host_build)
     except Exception as e:
         traceback.print_exc()
-        context.log(executor_data_id, str(e))
+        context.log(str(e))
 
 
 def do_build_project(executor_data_id, business_data, host_build):
     # # 测试
-    context.log(executor_data_id, context.execute_remote_command(host_build, 'ls -alh /'))
+    context.log(context.execute_remote_command(host_build, 'ls -alh /'))
