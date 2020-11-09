@@ -1,1 +1,1 @@
-{"id": 1, "url": "http://git.wjh.com", "robot_username": "tanshilin", "robot_password": "gitlabTristan0615", "name": "本地git服务器"}
+{"id": 1, "url": "http://git.wjh.com", "robot_username": "tanshilin", "robot_password": "gitlabTristan0615", "name": "本地git服务器", "update_datetime": {"$date": 1604953278000}, "create_datetime": {"$date": 1604953278000}}
