@@ -50,6 +50,7 @@ dependency_lib通过放置缓存的依赖库文件、远程依赖库配置
                 startup.sh
                 Dockerfile
                 do_build_docker.sh
+                build_docker.sh
                 clean_build_docker.sh
         data_data:
         	git_server.json
@@ -304,7 +305,7 @@ do_build_docker.sh:
 docker run -it --name execute_business_1_1 -v /data:实际目录 docker  git配置名称/仓库目录/package_to_docker.sh
 
 
-package_to_docker.sh:
+build_docker.sh:
 cat /root/.m2/dockerregistry-auth |  docker login ${DOCKER_REGISTRY_URL} --username ${DOCKER_REGISTRY_USERNAME} --password-stdin
 docker build --build-arg IMAGE_PROJECT_TAG=${IMAGE_PROJECT_TAG} -t ${IMAGE_ID}  .
 docker push ${IMAGE_ID}
