@@ -32,24 +32,29 @@ def build_project(executor_data_id, data_data_data):
     context.global_data.executor_data_id = executor_data_id
     try:
         """
-        [{'id': 8, 'git_server': '1', 'project_name': '仓库系统', 'gitlab_id': '43',
-            'branches': 'master', 'tags': '', 'program_language': 'java', 'docker_registry_id': '1'}]
+        {'id': 11, 'git_server': '1', 'project_name': '仓库系统', 'branches': 'master', 'tags': '', 
+        'program_language': 'java', 'docker_registry_id': '1', 'update_datetime': {'$date': 1605035741000}, 
+        'create_datetime': {'$date': 1605035741000}, 'repo_path': 'http://git.wjh.com/wms/wms_service'}
         """
         # 查询执行器
         host_build = context.select_data_by_data_id__data_data_id(15, 1)[0]  # 查询服务器连接信息
         context.log('host_build: ' + str(host_build))
         # 获取最新版本的数据, 保存数据到本地, 同步最新版本的数据到执行器目录
+        latest_update_datetime_record = ""
         """
         data_data:
             git_server.json
             docker_registry.json
         """
-        data_data_git_server = context.select_data_by_data_id__data_data_id('5', data_data_data['git_server'])[
-            0]  # git服务器
+        # 查询 git服务器
+        data_data_git_server = context.select_data_by_data_id__data_data_id('5', data_data_data['git_server'])[0]
+        latest_update_datetime_record += str(data_data_git_server["update_datetime"]) + ";"
+        # 查询 docker镜像仓库
         data_data_docker_registry = \
-            context.select_data_by_data_id__data_data_id('4', data_data_data['docker_registry_id'])[0]  # docker镜像仓库
-        latest_update_datetime_record = str(data_data_git_server["update_datetime"]) + ";" + str(
-            data_data_docker_registry["update_datetime"])
+            context.select_data_by_data_id__data_data_id('4', data_data_data['docker_registry_id'])[0]
+        latest_update_datetime_record += str(data_data_docker_registry["update_datetime"]) + ";"
+        # 查询 仓库地址
+
         local_update_datetime_record = None
         if os.path.exists(local_update_datetime_record_path):
             with open(local_update_datetime_record_path) as f:
@@ -94,7 +99,8 @@ EOF
         # 好处是什么? 目录都都可以在自己的目录, 坏处是什么, 需要拷贝文件
         # TODO 启动远程执行器启动器
         context.execute_remote_command(host_build,
-                                       "cd %s && python startup.py -ei %s" % (remote_executor_root_path, executor_data_id))
+                                       "cd %s && python startup.py -ei %s" % (
+                                           remote_executor_root_path, executor_data_id))
 
     except Exception as e:
         traceback.print_exc()
