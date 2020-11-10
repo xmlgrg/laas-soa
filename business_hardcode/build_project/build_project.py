@@ -97,11 +97,17 @@ EOF
         """ % (remote_executor_run_n_path + "/data_data.json", json.dumps(data_data_data, ensure_ascii=False)))
         # 是否应该考虑将共享文件拷贝到自己的区域???
         # 好处是什么? 目录都都可以在自己的目录, 坏处是什么, 需要拷贝文件
-        # TODO 启动远程执行器启动器
-        context.execute_remote_command(host_build,
-                                       "cd %s && python startup.py -ei %s" % (
-                                           remote_executor_root_path, executor_data_id))
-
+        command = "cd %s && python startup.py -ei %s" % (remote_executor_root_path, executor_data_id)
+        # execute_result = context.execute_remote_command(host_build, command)
+        # context.log(execute_result)
+        shin, shout, sherr = context.ShellHandler(host_build["ip"], host_build["port"], host_build["username"],
+                                                  host_build["password"]).execute(command)
+        print(shin)
+        print("=" * 200)
+        for item in shout:
+            print(item)
+        print("=" * 200)
+        print(sherr)
     except Exception as e:
         traceback.print_exc()
         context.log(str(e))
