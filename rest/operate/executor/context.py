@@ -24,14 +24,16 @@ def select_data_by_data_id__data_data_id(data_id, data_data_id):
     return data.select_by_data_id__data_data_id(data_id, data_data_id)
 
 
-def log(log_content):
+def log(log_content, executor_data_id=None):
     """
     记录日志
-    :param execute_data_id:
     :param log_content:
+    :param executor_data_id:
     :return:
     """
-    logging.warning("execute_data_id: %s log_content: %s" % (global_data.executor_data_id, log_content))
+    if not executor_data_id:
+        executor_data_id = global_data.executor_data_id
+    logging.warning("execute_data_id: %s log_content: %s" % (executor_data_id, log_content))
     # TODO 持久化日志内容
 
 

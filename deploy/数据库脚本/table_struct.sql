@@ -135,8 +135,9 @@ create table executor_data
         primary key,
     business_id     int                                 not null comment '业务id',
     business_name   varchar(255)                        not null comment '业务名称',
-    form_data_id    int                                 not null comment '表单数据id',
-    form_data       mediumtext                          not null comment '表单数据',
+    data_id         int                                 not null comment '数据id',
+    data_data_id    int                                 not null comment '数据id',
+    data_data_data  mediumtext                          not null comment '启动数据',
     create_by       varchar(100)                        not null comment '创建人',
     create_datetime timestamp default CURRENT_TIMESTAMP not null comment '创建时间'
 )

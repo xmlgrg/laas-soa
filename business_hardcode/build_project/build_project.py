@@ -21,25 +21,20 @@ context.prepare_local_dirs([local_executor_data_data_path])
 local_update_datetime_record_path = local_executor_root_path + "/" + "local_update_datetime_record"
 
 
-def build_project(executor_data_id, data_id, data_data_id):
+def build_project(executor_data_id, data_data_data):
     """
     构建项目
     :param executor_data_id:
-    :param data_id:
-    :param data_data_id:
+    :param data_data_data:
     :return:
     """
     # 记录全局数据
     context.global_data.executor_data_id = executor_data_id
     try:
-        context.log("执行器启动: data_id: %s data_data_id: %s" % (data_id, data_data_id))
-        # 得到执行器执行时的初始业务数据
-        business_data = context.select_data_by_data_id__data_data_id(data_id, data_data_id)[0]
         """
         [{'id': 8, 'git_server': '1', 'project_name': '仓库系统', 'gitlab_id': '43',
             'branches': 'master', 'tags': '', 'program_language': 'java', 'docker_registry_id': '1'}]
         """
-        context.log("startup_parameters: " + str(business_data))
         # 查询执行器
         host_build = context.select_data_by_data_id__data_data_id(15, 1)[0]  # 查询服务器连接信息
         context.log('host_build: ' + str(host_build))
@@ -49,10 +44,10 @@ def build_project(executor_data_id, data_id, data_data_id):
             git_server.json
             docker_registry.json
         """
-        data_data_git_server = context.select_data_by_data_id__data_data_id('5', business_data['git_server'])[
+        data_data_git_server = context.select_data_by_data_id__data_data_id('5', data_data_data['git_server'])[
             0]  # git服务器
         data_data_docker_registry = \
-            context.select_data_by_data_id__data_data_id('4', business_data['docker_registry_id'])[0]  # docker镜像仓库
+            context.select_data_by_data_id__data_data_id('4', data_data_data['docker_registry_id'])[0]  # docker镜像仓库
         latest_update_datetime_record = str(data_data_git_server["update_datetime"]) + ";" + str(
             data_data_docker_registry["update_datetime"])
         local_update_datetime_record = None
@@ -94,7 +89,7 @@ def build_project(executor_data_id, data_id, data_data_id):
 sudo cat >> %s<<EOF
 %s
 EOF
-        """ % (remote_executor_run_n_path+"/data_data.json", json.dumps(business_data)))
+        """ % (remote_executor_run_n_path + "/data_data.json", json.dumps(data_data_data, ensure_ascii=False)))
         # TODO 启动远程执行器启动器
         context.execute_remote_command(host_build,
                                        "cd %s && python startup.py %s" % (remote_executor_root_path, executor_data_id))
@@ -102,4 +97,3 @@ EOF
     except Exception as e:
         traceback.print_exc()
         context.log(str(e))
-    context.log("执行器已启动: data_id: %s data_data_id: %s" % (data_id, data_data_id))
