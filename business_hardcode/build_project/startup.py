@@ -85,10 +85,6 @@ def load_business():
     pass
 
 
-def business_load_data():
-    pass
-
-
 def execute_business():
     # do_build_project
     # build_project
