@@ -7,5 +7,5 @@ mysql:
   user:
   password:
   charset:
-gitlab:
-  url_prefix:
+oauth:
+  url:

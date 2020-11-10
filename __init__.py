@@ -12,6 +12,7 @@ from logging.handlers import TimedRotatingFileHandler
 from exception import MyServiceException
 import config
 import route
+import auth
 
 project_root_path = os.getcwd()  # 项目根目录
 config.init()
@@ -45,6 +46,17 @@ def error(e):
         custom_res.status = "500"
         return custom_res
     return e
+
+
+@app.before_request
+def global_interceptor():
+    try:
+        auth.wrap_authentication()
+    except MyServiceException as e:
+        custom_res = make_response(e.msg)
+        custom_res.status = "401"
+        return custom_res  # 暂时只做粗略的是否登录权限验证, 不做精细权限
+        # return redirect("/login")
 
 
 mymysql.init(config.app_conf["mysql"])
