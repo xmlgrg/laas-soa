@@ -60,13 +60,9 @@ dependency_lib通过放置缓存的依赖库文件、远程依赖库配置
 			dependency_lib
 				java
 				nodejs
-		run
-			<执行器id>
-				data_data.json
+			code
 				<源码仓库地址转目录>
                     <项目访问后部分目录>
-                        cache
-                        	dependency_lib
                         branches
                             <分支名>
                                 source
@@ -75,6 +71,10 @@ dependency_lib通过放置缓存的依赖库文件、远程依赖库配置
                             <标签名>
                                 source
                                 build
+		run
+			<执行器id>
+				data_data.json
+
 
 
 借助docker进行构建时, 需要挂载:
@@ -275,7 +275,8 @@ ENTRYPOINT ["./startup.sh"]
 
 
 do_build_project.sh:
-docker run -it --name exe1cute_business_1_1 -v /data/tristan/1/run/1:实际目录 maven:3-alpine git配置名称/仓库目录/compile_to_execute.sh
+docker run -it --name exe1cute_business_1_1 -v /data/tristan/1/cache/java:/root/.m2 -v /data/tristan/1/cache/<目录>:/source_code -v /.../build:/source_code/target maven:3-alpine git配置名称/仓库目录/compile_to_execute.sh
+
 
 
 build_project.sh:
