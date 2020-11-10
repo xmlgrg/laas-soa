@@ -7,13 +7,13 @@ from flask import request
 import config
 from exception import MyServiceException
 
-SOA_TOKEN_STR = "soa_token"
+SOA_TOKEN_STR = "Laas-Soa-Token"
 
 
 def query_token_by_remote(token):
     # 请求授权接口
     oauth_url = config.app_conf["oauth"]["url"]
-    resp = requests.get(oauth_url, {
+    resp = requests.get(oauth_url + "/permission/verification_token", {
         "token": token
     })
     result = resp.json()
@@ -22,6 +22,7 @@ def query_token_by_remote(token):
 
 
 def do_auth():
+    print(request.headers)
     if SOA_TOKEN_STR not in request.headers:
         raise MyServiceException("未登录的请求")
     token = request.headers[SOA_TOKEN_STR]
