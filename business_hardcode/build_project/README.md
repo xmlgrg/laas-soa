@@ -20,11 +20,9 @@
 
 
 
+在run目录下创建当前执行目录, 目录名为"执行器id", 将启动参数写入data_data.json文件中
 
-
-
-
-构建过程为:
+远程启动startup.py文件并设置启动参数:  "执行器id"
 
 根据项目目录创建并切换到运行目录
 
@@ -64,7 +62,7 @@ dependency_lib通过放置缓存的依赖库文件、远程依赖库配置
 				nodejs
 		run
 			<执行器id>
-				repo.json
+				data_data.json
 				<源码仓库地址转目录>
                     <项目访问后部分目录>
                         cache

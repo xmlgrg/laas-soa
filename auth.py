@@ -22,7 +22,6 @@ def query_token_by_remote(token):
 
 
 def do_auth():
-    print(request.headers)
     if SOA_TOKEN_STR not in request.headers:
         raise MyServiceException("未登录的请求")
     token = request.headers[SOA_TOKEN_STR]

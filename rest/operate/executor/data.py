@@ -31,7 +31,12 @@ def insert():
     data_id = request_data["data_id"]
     business_id = request_data["business_id"]
     data_data_id = request_data["data_data_id"]
+    # 持久化到数据库中
+
     executor_data_id = time.time_ns()  # 执行器数据id, 后续包含: 执行日志、执行状态 等等
+
+
+
     threading.Thread(target=business_hardcode_pool[business_id],
                      args=(executor_data_id, data_id, data_data_id,)).start()
     return json.dumps({

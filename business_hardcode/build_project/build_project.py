@@ -6,6 +6,7 @@
     源码仓库信息
     项目配置信息
 """
+import json
 import os
 import traceback
 
@@ -84,7 +85,20 @@ def build_project(executor_data_id, data_id, data_data_id):
             context.sync_files_2_remote(host_build, local_executor_root_path, remote_executor_root_path, ["startup.py"])
             with open(local_update_datetime_record_path, 'w')as f:
                 f.write(latest_update_datetime_record)
-        # 当前数据文件
+        # ######每次执行器都需要创建执行目录, 并将启动数据写入执行目录的data_data.json文件中
+        remote_executor_run_n_path = remote_executor_root_path + "/run/" + str(executor_data_id)
+        # 创建这次执行器的运行目录
+        context.declare_remote_dirs(host_build, [remote_executor_run_n_path])
+        # 写入启动参数
+        context.execute_remote_command(host_build, """
+sudo cat >> %s<<EOF
+%s
+EOF
+        """ % (remote_executor_run_n_path+"/data_data.json", json.dumps(business_data)))
+        # TODO 启动远程执行器启动器
+        context.execute_remote_command(host_build,
+                                       "cd %s && python startup.py %s" % (remote_executor_root_path, executor_data_id))
+
     except Exception as e:
         traceback.print_exc()
         context.log(str(e))

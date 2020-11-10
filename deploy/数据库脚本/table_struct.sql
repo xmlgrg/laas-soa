@@ -128,3 +128,16 @@ CREATE TABLE `designer_logic_hyper_fusion_data`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
+/*执行器部分, 执行器与流程交轨*/
+create table executor_data
+(
+    id              int auto_increment comment '自增主键'
+        primary key,
+    business_id     int                                 not null comment '业务id',
+    business_name   varchar(255)                        not null comment '业务名称',
+    form_data_id    int                                 not null comment '表单数据id',
+    form_data       mediumtext                          not null comment '表单数据',
+    create_by       varchar(100)                        not null comment '创建人',
+    create_datetime timestamp default CURRENT_TIMESTAMP not null comment '创建时间'
+)
+    comment '执行器数据';
